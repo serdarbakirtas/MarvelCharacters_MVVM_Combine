@@ -19,3 +19,6 @@ Custom code (UIKit) is used instead of storyboard/xib for showing the UI design.
 + All UI is developed in code using UIKit (no Xib/Storyboards).
 + Alamofire is used for network layers.
 + Implemented simple design and existing best practices of UI/UX and software design.
+
+# Screens
+<img src="https://github.com/serdarbakirtas/MarvelCharacters_MVVM_Combine/blob/release/Screenshots/folders.png" alt="HTML5 Icon" width="336" height="575"> <img src="https://github.com/serdarbakirtas/MarvelCharacters_MVVM_Combine/blob/release/Screenshots/mvvm.png" alt="HTML5 Icon" width="846" height="490">
