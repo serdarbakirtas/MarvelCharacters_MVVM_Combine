@@ -7,34 +7,36 @@
 
 import UIKit
 
-protocol MarvelCharactersViewModelOutput: class {}
+protocol CharacterListViewModelOutput {
+    func getListCount() -> Int
+}
 
 class CharacterListVC: UIViewController {
     
     // MARK: UI
     private lazy var contentView = CharacterListView()
     
-    private var viewModel: CharacterListViewModel<CharacterListVC>!
+    private var viewModel = CharacterListViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = CharacterListViewModel(view: self)
         viewModel.apply(.onAppear)
-        
         view = contentView
+        
         contentView.tableView.dataSource = self
         contentView.tableView.delegate = self
-        
+        reloadData()
+    }
+    
+    // MARK: Functions
+    private func reloadData() {
         viewModel.$charactersItemViewModel.receive(on: RunLoop.main).sink { [weak self] response in
             guard let self = self else { return }
             self.contentView.tableView.reloadData()
         }.store(in: &viewModel.cancellables)
     }
 }
-
-// MARK: View
-extension CharacterListVC: MarvelCharactersViewModelOutput {}
 
 // MARK: Tableview Delegate and DataSource
 extension CharacterListVC: UITableViewDelegate {

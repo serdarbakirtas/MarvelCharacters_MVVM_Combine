@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class CharacterListViewModel<T: MarvelCharactersViewModelOutput> {
+class CharacterListViewModel: CharacterListViewModelOutput {
     
     // MARK: Input
     enum Input {
@@ -26,19 +26,14 @@ class CharacterListViewModel<T: MarvelCharactersViewModelOutput> {
     private let onAppearSubject = PassthroughSubject<Void, Never>()
     private let responseSubject = PassthroughSubject<Marvel, Never>()
     private let errorSubject = PassthroughSubject<APIServiceError, Never>()
-    private let apiService: APIServiceType
+    private let apiService: APIServiceType = APIService()
     
     // MARK: Output
     @Published var charactersItemViewModel: [CharactersItemViewModel] = []
     @Published var isErrorShown = false
     @Published var errorMessage = ""
     
-    weak var view: T?
-    
-    init(view: T, apiService: APIServiceType = APIService()) {
-        self.apiService = apiService
-        self.view = view
-        
+    init() {
         bindInputs()
         bindOutputs()
     }
@@ -78,9 +73,6 @@ class CharacterListViewModel<T: MarvelCharactersViewModelOutput> {
         let errorStream = errorSubject.map { _ in true }.assign(to: \.isErrorShown, on: self)
         cancellables += [ characterListStream, errorStream, errorMessageStream ]
     }
-}
-
-extension CharacterListViewModel {
     
     // MARK: Functions
     func getListCount() -> Int {

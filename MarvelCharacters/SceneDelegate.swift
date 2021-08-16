@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
+            
             let marvelCharactersVC = CharacterListVC()
             let mainNavigationController = UINavigationController(rootViewController: marvelCharactersVC)
             self.window!.rootViewController = mainNavigationController

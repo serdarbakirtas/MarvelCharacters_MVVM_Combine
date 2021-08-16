@@ -34,24 +34,26 @@ class CharacterCell: UITableViewCell {
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         accessoryType = .disclosureIndicator
-        self.contentView.addSubview(titleLabel)
-        self.contentView.addSubview(line)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(line)
+        
+        layoutIfNeeded()
     }
 
     override func layoutSubviews() {
         super.layoutSubviews()
         NSLayoutConstraint.activate([
-            titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: CONSTANT),
-            titleLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: CONSTANT),
-            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            titleLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: CONSTANT),
+            titleLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: CONSTANT),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: CONSTANT),
+            titleLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -CONSTANT),
             
-            line.leftAnchor.constraint(equalTo: self.leftAnchor, constant: CONSTANT),
-            line.rightAnchor.constraint(equalTo: self.rightAnchor),
-            line.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1),
+            line.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: CONSTANT),
+            line.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            line.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -1),
             line.heightAnchor.constraint(equalToConstant: 1)
           ])
     }
